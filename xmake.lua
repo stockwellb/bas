@@ -9,9 +9,9 @@ add_syslinks("m")
 -- single-header implementations get compiled. Defining these here (rather than
 -- with an in-source #define) also lands them in compile_commands.json, so
 -- clangd stops greying out the #ifdef ..._IMPLEMENTATION sections.
-add_defines("BAS_GEOMETRY_IMPLEMENTATION", "BAS_TEST_IMPLEMENTATION")
+add_defines("BAS_GEOMETRY_IMPLEMENTATION", "BAS_ARENA_IMPLEMENTATION", "BAS_TEST_IMPLEMENTATION")
 
-local tests = {"scalar", "vec2", "aabb"}
+local tests = {"scalar", "vec2", "aabb", "arena"}
 
 for _, name in ipairs(tests) do
     target("test_" .. name)
