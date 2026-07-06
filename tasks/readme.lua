@@ -1,4 +1,3 @@
----@diagnostic disable: lowercase-global
 -- Generation logic for the `xmake readme` task (see xmake.lua).
 --
 -- Pure Lua: given the header list (each entry {name = "bas_x.h", content =
