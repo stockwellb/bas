@@ -1,0 +1,30 @@
+#!/bin/sh
+# Keep the README library table in sync with the header title lines.
+#
+# Regenerates the table via `xmake readme` whenever a commit touches a bas_*.h
+# header or the README, and re-stages README.md if it changed. Enabled with:
+#
+#     git config core.hooksPath .githooks
+
+if ! command -v xmake >/dev/null 2>&1; then
+    echo "pre-commit: xmake not found; skipping README table regeneration" >&2
+    exit 0
+fi
+
+# Nothing to do unless this commit touches a header or the README itself.
+if ! git diff --cached --name-only | grep -qE '^(bas_.*\.h|README\.md)$'; then
+    exit 0
+fi
+
+if ! xmake readme >/dev/null 2>&1; then
+    echo "pre-commit: 'xmake readme' failed" >&2
+    exit 1
+fi
+
+# If regeneration changed the README, fold it into this commit.
+if ! git diff --quiet -- README.md; then
+    git add README.md
+    echo "pre-commit: regenerated README.md library table"
+fi
+
+exit 0

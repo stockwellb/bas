@@ -1,0 +1,4 @@
+.DS_Store
+.xmake/
+build/
+compile_commands.json
